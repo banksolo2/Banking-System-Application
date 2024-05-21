@@ -57,4 +57,9 @@ public class RoleServiceImpl implements RoleService {
     public Role getByCode(String code) {
         return null;
     }
+
+    @Override
+    public Role getByName(String name) {
+        return roleRepository.findByNameIgnoreCase(name).orElse(new Role());
+    }
 }

@@ -2,6 +2,7 @@ package com.bankstech.BankingSystemApplication.service;
 
 import com.bankstech.BankingSystemApplication.entity.User;
 import com.bankstech.BankingSystemApplication.model.ChangePassword;
+import com.bankstech.BankingSystemApplication.model.CreateUserModel;
 import com.bankstech.BankingSystemApplication.model.IsRoles;
 import com.bankstech.BankingSystemApplication.model.ResponseMessage;
 
@@ -11,9 +12,11 @@ public interface UserService {
 
     public Boolean isEmailExist(String email);
 
-    public Object validateCreateUser(User user);
+    public Object validateCreateUser(CreateUserModel createUserModel);
 
-    public ResponseMessage create(User user);
+    public User convertCreateUserModelToUser(CreateUserModel createUserModel);
+
+    public ResponseMessage create(CreateUserModel createUserModel, User createdBy);
 
     public ResponseMessage update(User user);
 

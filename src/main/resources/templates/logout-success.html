@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragment-login :: head}"></head>
+<body class="login-page">
+<div th:replace="~{fragment-login :: header}"></div>
+<div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 col-lg-7">
+        <img th:src="@{/vendors/images/login-page-img.png}" alt="">
+      </div>
+      <div class="col-md-6 col-lg-5">
+        <div class="login-box bg-white box-shadow border-radius-10">
+          <div class="login-title">
+            <h2 class="text-center text-primary">Logout From Banking System</h2>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="input-group mb-0">
+                <div class="alert alert- alert-dismissible fade show" role="alert" th:if="${param.logout}">
+                  <strong>Success Message!</strong> You are successfully logout.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <a class="btn btn-primary btn-lg btn-block" th:href="@{/login}">Login</a>
+
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:replace="~{fragment-login :: script}"></div>
+</body>
+</html>

@@ -85,6 +85,22 @@
                         <span class="micon dw dw-house"></span><span class="mtext">Dashboard</span>
                     </a>
                 </li>
+                <li class="dropdown" th:if="${isRoles.isAdmin == true || isRoles.isDeveloper == true}">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-user-11"></span><span class="mtext">Admin</span>
+                    </a>
+                    <ul class="submenu">
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon fa fa-user"></span><span class="mtext">User</span>
+                            </a>
+                            <ul class="submenu child">
+                                <li><a href="javascript:;">All</a></li>
+                                <li><a th:href="@{/admin/user/create}">Create</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
                 <!--
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
@@ -123,8 +139,8 @@
     </div>
 </div>
 <div class="footer-wrap pd-20 mb-20 card-box" th:fragment="footer">
-    HRMS - Human Resource Management By <a href="https://www.linkedin.com/in/oluwaseun-joseph-olotu-2b603280/" target="_blank">Banks Tech</a>
-</div>
+    BSA - Banking System APP By <a href="https://seun-olo2.web.app/" target="_blank">Oluwaseun Joseph Olotu</a>
+</div>https://www.linkedin.com/in/oluwaseun-joseph-olotu-2b603280/
 <div th:fragment="script">
     <!-- js -->
     <script th:src="@{/vendors/scripts/jquery-3.7.0.min.js}"></script>

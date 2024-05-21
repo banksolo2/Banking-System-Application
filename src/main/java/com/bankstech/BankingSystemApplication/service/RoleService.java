@@ -14,4 +14,6 @@ public interface RoleService {
     public ResponseMessage delete(Long roleId);
 
     public Role getByCode(String code);
+
+    public Role getByName(String name);
 }
