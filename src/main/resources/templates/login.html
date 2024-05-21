@@ -1,9 +1,9 @@
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragment-login :: head"></head>
+<head th:replace="~{fragment-login :: head}"></head>
 <body class="login-page">
-<div th:replace="fragment-login :: header"></div>
+<div th:replace="~{fragment-login :: header}"></div>
 <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
     <div class="container">
         <div class="row align-items-center">
@@ -13,7 +13,7 @@
             <div class="col-md-6 col-lg-5">
                 <div class="login-box bg-white box-shadow border-radius-10">
                     <div class="login-title">
-                        <h2 class="text-center text-primary">Login To HRMS</h2>
+                        <h2 class="text-center text-primary">LOGIN TO BANKING SYSTEM APP</h2>
                     </div>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${param.error}">
                         <strong><i class="icon-copy fa fa-warning" aria-hidden="true"></i> </strong> [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
@@ -50,6 +50,6 @@
         </div>
     </div>
 </div>
-<div th:replace="fragment-login :: script"></div>
+<div th:replace="~{fragment-login :: script}"></div>
 </body>
 </html>

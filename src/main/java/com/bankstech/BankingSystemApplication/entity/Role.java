@@ -5,7 +5,7 @@ import lombok.*;
 
 @Entity
 @Table(
-        name = "user_roles",
+        name = "roles",
         uniqueConstraints = @UniqueConstraint(
                 name = "user_role_name_unique",
                 columnNames = "name"

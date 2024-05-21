@@ -52,4 +52,9 @@ public class RoleServiceImpl implements RoleService {
                 .message("Role deleted.")
                 .build();
     }
+
+    @Override
+    public Role getByCode(String code) {
+        return null;
+    }
 }

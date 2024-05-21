@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <!-- Basic Page Info -->
+    <meta charset="utf-8">
+    <title>BSA - [[${title}]]</title>
+
+    <!-- Site favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/vendors/images/apple-touch-icon.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/vendors/images/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/vendors/images/favicon-16x16.png}">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/styles/core.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/styles/icon-font.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/src/plugins/jvectormap/jquery-jvectormap-2.0.3.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/styles/style.css}">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-119386393-1');
+    </script>
+</head>
+<body>
+<div class="pre-loader" th:fragment="preloader">
+    <div class="pre-loader-box">
+        <div class="loader-logo"><img th:src="@{/vendors/images/deskapp-logo.svg}" alt=""></div>
+        <div class='loader-progress' id="progress_div">
+            <div class='bar' id='bar1'></div>
+        </div>
+        <div class='percent' id='percent1'>0%</div>
+        <div class="loading-text">
+            Loading...
+        </div>
+    </div>
+</div>
+<div class="header" th:fragment="top-header">
+    <div class="header-left">
+        <div class="menu-icon dw dw-menu"></div>
+
+    </div>
+    <div class="header-right">
+        <div class="user-info-dropdown">
+            <div class="dropdown">
+                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+						<span class="user-icon">
+							<img th:src="@{/vendors/images/photo1.jpg}" alt="">
+						</span>
+                    <span class="user-name">[[${userData.email}]]</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                    <a class="dropdown-item" href="#"><i class="dw dw-user1"></i> Update Profile</a>
+                    <a class="dropdown-item" th:href="@{/change-password}"><i class="dw dw-settings2"></i> Change Password</a>
+                    <a class="dropdown-item" th:href="@{/logout}"><i class="dw dw-logout"></i> Log Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="left-side-bar" th:fragment="left-nav">
+    <div class="brand-logo">
+        <a href="#">
+            <img th:src="@{/vendors/images/deskapp-logo.svg}" alt="" class="dark-logo">
+            <img th:src="@{/vendors/images/deskapp-logo-white.svg}" alt="" class="light-logo">
+        </a>
+        <div class="close-sidebar" data-toggle="left-sidebar-close">
+            <i class="ion-close-round"></i>
+        </div>
+    </div>
+    <div class="menu-block customscroll">
+        <div class="sidebar-menu">
+            <ul id="accordion-menu">
+                <li>
+                    <a th:href="@{/}" class="dropdown-toggle no-arrow ">
+                        <span class="micon dw dw-house"></span><span class="mtext">Dashboard</span>
+                    </a>
+                </li>
+                <!--
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-notebook"></span><span class="mtext">Leave</span>
+                    </a>
+                    <ul class="submenu">
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle active" th:if="${link.head == 'leaveWithPay'}">
+                                <span class="micon dw dw-money-2"></span><span class="mtext">With Pay</span>
+                            </a>
+                            <a href="javascript:;" class="dropdown-toggle" th:unless="${link.head == 'leaveWithPay'}">
+                                <span class="micon dw dw-money-2"></span><span class="mtext">With Pay</span>
+                            </a>
+                            <ul class="submenu child">
+                                <li><a th:href="@{/employee/leave/with-pay/make-request}" class="active" th:if="${link.sub == 'makeRequest'}">Make Request</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/make-request}"  th:unless="${link.sub == 'makeRequest'}">Make Request</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/drafted}" class="active" th:if="${link.sub == 'drafted'}">Drafted</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/drafted}"  th:unless="${link.sub == 'drafted'}">Drafted</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/pending}" class="active" th:if="${link.sub == 'pending'}">Pending</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/pending}"  th:unless="${link.sub == 'pending'}">Pending</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/sent-back-for-correction}" class="active" th:if="${link.sub == 'sentBackForCorrection'}">Send Back For Correction</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/sent-back-for-correction}"  th:unless="${link.sub == 'sentBackForCorrection'}">Send Back For Correction</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/approved}" class="active" th:if="${link.sub == 'approved'}">Approved</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/approved}"  th:unless="${link.sub == 'approved'}">Approved</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/declined}" class="active" th:if="${link.sub == 'declined'}">Declined</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/declined}"  th:unless="${link.sub == 'declined'}">Declined</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/history}" class="active" th:if="${link.sub == 'history'}">History</a></li>
+                                <li><a th:href="@{/employee/leave/with-pay/history}"  th:unless="${link.sub == 'history'}">History</a></li>
+
+                            </ul>
+                        </li>
+                        -->
+                    </ul>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="footer-wrap pd-20 mb-20 card-box" th:fragment="footer">
+    HRMS - Human Resource Management By <a href="https://www.linkedin.com/in/oluwaseun-joseph-olotu-2b603280/" target="_blank">Banks Tech</a>
+</div>
+<div th:fragment="script">
+    <!-- js -->
+    <script th:src="@{/vendors/scripts/jquery-3.7.0.min.js}"></script>
+    <script th:src="@{/vendors/scripts/core.js}"></script>
+    <script th:src="@{/vendors/scripts/script.min.js}"></script>
+    <script th:src="@{/vendors/scripts/process.js}"></script>
+    <script th:src="@{/vendors/scripts/layout-settings.js}"></script>
+    <script th:src="@{/src/plugins/jQuery-Knob-master/jquery.knob.min.js}"></script>
+    <script th:src="@{/src/plugins/highcharts-6.0.7/code/highcharts.js}"></script>
+    <script th:src="@{/src/plugins/highcharts-6.0.7/code/highcharts-more.js}"></script>
+    <script th:src="@{/src/plugins/jvectormap/jquery-jvectormap-2.0.3.min.js}"></script>
+    <script th:src="@{/src/plugins/jvectormap/jquery-jvectormap-world-mill-en.js}"></script>
+    <script th:src="@{/vendors/scripts/dashboard2.js}"></script>
+</div>
+</body>
+</html>

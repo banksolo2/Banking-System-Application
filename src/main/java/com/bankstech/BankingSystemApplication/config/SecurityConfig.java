@@ -29,7 +29,9 @@ public class SecurityConfig {
     private final String ROLES[] = {"USER","DEVELOPER","ADMIN"};
 
     private final String WHITE_LIST[] = {
-            "/login"
+            "/login",
+            "/vendors/**",
+            "/src/**"
     };
 
     @Bean
