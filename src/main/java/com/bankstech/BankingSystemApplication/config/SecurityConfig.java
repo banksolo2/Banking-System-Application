@@ -31,7 +31,8 @@ public class SecurityConfig {
     private final String WHITE_LIST[] = {
             "/login",
             "/vendors/**",
-            "/src/**"
+            "/src/**",
+            "/h2-console/**"
     };
 
     @Bean

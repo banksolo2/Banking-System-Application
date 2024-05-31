@@ -1,19 +1,16 @@
 package com.bankstech.BankingSystemApplication.service;
 
-import com.bankstech.BankingSystemApplication.entity.Gender;
 import com.bankstech.BankingSystemApplication.entity.Role;
 import com.bankstech.BankingSystemApplication.entity.User;
-import com.bankstech.BankingSystemApplication.model.ChangePassword;
-import com.bankstech.BankingSystemApplication.model.CreateUserModel;
-import com.bankstech.BankingSystemApplication.model.IsRoles;
-import com.bankstech.BankingSystemApplication.model.ResponseMessage;
+import com.bankstech.BankingSystemApplication.model.*;
 import com.bankstech.BankingSystemApplication.repository.UserRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,8 +25,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private GenderService genderService;
+
     @Value("${app.default-password}")
     private String defaultPassword;
+
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public Boolean isEmailExist(String email) {
@@ -74,7 +77,7 @@ public class UserServiceImpl implements UserService {
                     .message("Phone number field required")
                     .build();
         }
-        if(Objects.isNull(createUserModel.getGender()) || createUserModel.getGender().isEmpty()){
+        if(Objects.isNull(createUserModel.getGenderId()) || createUserModel.getGenderId() == 0){
             return ResponseMessage.builder()
                     .type("error")
                     .message("Gender field required")
@@ -94,10 +97,7 @@ public class UserServiceImpl implements UserService {
         user.setPhone(createUserModel.getPhone());
         user.setIsActive(true);
         user.setIsDeleted(false);
-        if(createUserModel.getGender().equalsIgnoreCase("male"))
-            user.setGender(Gender.MALE);
-        else
-            user.setGender(Gender.FEMALE);
+        user.setGender(genderService.getById(createUserModel.getGenderId()));
         List<Role> roles = new ArrayList<>();
         roles.add(roleService.getByName("ROLE_USER"));
         user.setRoles(roles);
@@ -113,7 +113,24 @@ public class UserServiceImpl implements UserService {
         }
         User user = convertCreateUserModelToUser(createUserModel);
         user.setCreatedBy(createdBy);
-        userRepository.save(user);
+        user = userRepository.save(user);
+
+        EmailModel emailModel = EmailModel.builder()
+                .subject("ACCOUNTING SYSTEM APP: New User Account Create")
+                .messageBody(
+                        "Hi "+user.getFirstName()+",\n" +
+                                "Your user account has been created. " +
+                                "please sign in to update your password. Please find login " +
+                                "details below:\n\n" +
+                                "UserName:\t"+user.getEmail()+"\n" +
+                                "Password:\t"+defaultPassword+"\n" +
+                                "URL:\thttp://localhost:8080/change-password\n\n" +
+                                "Regards,\n" +
+                                "Accounting System App"
+                )
+                .recipient(user.getEmail())
+                .build();
+        emailService.sendEmailAlert(emailModel);
 
         return ResponseMessage.builder()
                 .type("success")
@@ -127,8 +144,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseMessage delete(Long userId) {
-        return null;
+    public ResponseMessage delete(Long userId, User deletedBy) {
+        Clock cl = Clock.systemUTC();
+        User user = getById(userId);
+        user.setIsDeleted(true);
+        user.setDeletedBy(deletedBy);
+        user.setDeletedAt(LocalDateTime.now(cl));
+        userRepository.save(user);
+
+        return ResponseMessage.builder()
+                .type("success")
+                .message("User has been deleted.")
+                .build();
     }
 
     @Override
@@ -138,7 +165,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> all() {
-        return List.of();
+        return userRepository.findAll();
     }
 
     @Override
@@ -194,5 +221,154 @@ public class UserServiceImpl implements UserService {
                 .type("success")
                 .message("Password updated")
                 .build();
+    }
+
+    @Override
+    public User getById(Long userId) {
+        return userRepository.findById(userId).orElse(new User());
+    }
+
+    @Override
+    public ResponseMessage deleteUserRole(Long roleId, Long userId, User updatedBy) {
+        User user = getById(userId);
+        List<Role> roles = new ArrayList<>();
+        for(Role r: user.getRoles()){
+            if(!r.getRoleId().equals(roleId)){
+                roles.add(r);
+            }
+        }
+        user.setRoles(roles);
+        user.setUpdatedBy(updatedBy);
+        userRepository.save(user);
+
+        return ResponseMessage.builder()
+                .type("success")
+                .message("User role has been deleted")
+                .build();
+    }
+
+    @Override
+    public ResponseMessage saveUserRole(AddUserRoleModel addUserRoleModel, User updatedBy) {
+        Role userRole = roleService.getByName("ROLE_USER");
+        int result = 0;
+        for(Role r : addUserRoleModel.getRoles()){
+            if(r.getRoleId().equals(userRole.getRoleId())){
+                result += 1;
+            }
+        }
+        if(result == 0){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("User Role cannot be deleted.")
+                    .build();
+        }
+
+        User user = getById(addUserRoleModel.getUserId());
+        user.setUpdatedBy(updatedBy);
+        user.setRoles(addUserRoleModel.getRoles());
+        userRepository.save(user);
+
+        return ResponseMessage.builder()
+                .type("success")
+                .message("Roles has been updated")
+                .build();
+    }
+
+    @Override
+    public ResponseMessage editUser(UpdateUserModel updateUserModel, User updatedBy) {
+        Object validateUpdateUserModel = validateUpdateUserModel(updateUserModel);
+        if(validateUpdateUserModel instanceof ResponseMessage){
+            return (ResponseMessage)  validateUpdateUserModel;
+        }
+        User user = getById(updateUserModel.getUserId());
+        user.setFirstName(updateUserModel.getFirstName());
+        user.setMiddleName(updateUserModel.getMiddleName());
+        user.setLastName(updateUserModel.getLastName());
+        user.setEmail(updateUserModel.getEmail());
+        user.setPhone(updateUserModel.getPhone());
+        user.setGender(updateUserModel.getGender());
+        user.setIsActive((updateUserModel.getIsActive().equals("True")) ? true : false);
+        user.setUpdatedBy(updatedBy);
+
+        userRepository.save(user);
+
+        return ResponseMessage.builder()
+                .type("success")
+                .message("User updated.")
+                .build();
+    }
+
+    @Override
+    public UpdateUserModel convertUserToUpdateUserModel(User user) {
+
+        return UpdateUserModel.builder()
+                .userId(user.getUserId())
+                .firstName(user.getFirstName())
+                .middleName(user.getMiddleName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .phone(user.getPhone())
+                .gender(user.getGender())
+                .isActive((user.getIsActive() == true) ? "True" : "False")
+                .build();
+    }
+
+    @Override
+    public Object validateUpdateUserModel(UpdateUserModel updateUserModel) {
+        if(Objects.isNull(updateUserModel.getUserId()) || updateUserModel.getUserId() == 0){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("User ID field required")
+                    .build();
+        }
+        if(Objects.isNull(updateUserModel.getMiddleName()) || updateUserModel.getMiddleName().isEmpty()){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("Middle Name field required")
+                    .build();
+        }
+        if(Objects.isNull(updateUserModel.getLastName()) || updateUserModel.getLastName().isEmpty()){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("Last Name field required")
+                    .build();
+        }
+        if(Objects.isNull(updateUserModel.getEmail()) || updateUserModel.getEmail().isEmpty()){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("email field required")
+                    .build();
+        }
+        if(isEmailExistOnUpdate(updateUserModel.getUserId(),updateUserModel.getEmail())){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("email address "+updateUserModel.getEmail()+" already exist.")
+                    .build();
+        }
+        if(Objects.isNull(updateUserModel.getPhone()) || updateUserModel.getPhone().isEmpty()){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("Phone number field required")
+                    .build();
+        }
+        if(Objects.isNull(updateUserModel.getGender()) || updateUserModel.getGender().getGenderId() == 0){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("Gender field required")
+                    .build();
+        }
+        if(Objects.isNull(updateUserModel.getIsActive()) || updateUserModel.getIsActive().isEmpty()){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("Is Active field required")
+                    .build();
+        }
+
+        return "Ok";
+    }
+
+    @Override
+    public Boolean isEmailExistOnUpdate(Long userId, String email) {
+        return userRepository.isEmailExistOnUpdate(userId,email);
     }
 }

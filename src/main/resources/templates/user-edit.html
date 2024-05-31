@@ -21,6 +21,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Admin</a></li>
                                 <li class="breadcrumb-item"><a href="#">User</a></li>
+                                <li class="breadcrumb-item"><a th:href="@{/admin/user/all}">All Users</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">[[${title}]]</li>
                             </ol>
                         </nav>
@@ -36,12 +37,13 @@
             <!-- Form grid Start -->
             <div class="pd-20 card-box mb-30">
                 <div th:replace="~{fragment-table :: alert}"></div>
-                <form method="post" th:action="@{/admin/user/save}" th:object="${createUserModel}">
+                <form method="post" th:action="@{/admin/user/update}" th:object="${updateUserModel}">
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label>First Name <b style="color: red">*</b></label>
                                 <input type="text" class="form-control" th:field="*{firstName}" required>
+                                <input type="hidden" th:field="*{userId}">
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
@@ -73,9 +75,21 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label>Gender <b style="color: red">*</b></label>
-                                <select class="selectpicker form-control" data-style="btn-outline-primary" data-size="5" th:field="*{genderId}" required>
-                                    <option value="">SELECT GENDER</option>
+                                <select class="selectpicker form-control" data-style="btn-outline-primary" data-size="5" th:field="*{gender}" required>
+                                    <option th:value="${updateUserModel.getGender().genderId}">[[${updateUserModel.getGender().name}]]</option>
                                     <option th:each="gender : ${genders}" th:value="${gender.genderId}">[[${gender.name}]]</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Is Active <b style="color: red">*</b></label>
+                                <select class="selectpicker form-control" data-style="btn-outline-primary" data-size="5" th:field="*{isActive}" required>
+                                    <option th:value="${updateUserModel.isActive}">[[${updateUserModel.isActive}]]</option>
+                                    <option th:if="${updateUserModel.isActive == 'True'}" th:value="'False'">False</option>
+                                    <option th:unless="${updateUserModel.isActive == 'True'}" th:value="'True'">True</option>
                                 </select>
                             </div>
                         </div>
@@ -84,6 +98,7 @@
                         <div class="col-md-12 col-sm-12">
                             <div class="btn-list">
                                 <button type="submit" class="btn btn-primary">Save</button>
+                                <a th:href="@{/admin/user/all}" class="btn btn-secondary">Go Back</a>
                             </div>
                         </div>
                     </div>

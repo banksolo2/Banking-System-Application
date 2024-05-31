@@ -40,19 +40,30 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String phone;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn( name = "gender_id")
     private Gender gender;
     private Boolean isActive;
     private Boolean isDeleted;
     private LocalDateTime deletedAt;
-    @OneToOne
+
+    @ManyToOne
+    @JoinColumn(name = "deleted_by")
     private User deletedBy;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
-    @OneToOne
+
+    @ManyToOne
+    @JoinColumn( name = "created_by")
     private User createdBy;
+
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-    @OneToOne
+
+
+    @ManyToOne
+    @JoinColumn(name = "updated_by")
     private User updatedBy;
 
     @ManyToMany( fetch = FetchType.EAGER)

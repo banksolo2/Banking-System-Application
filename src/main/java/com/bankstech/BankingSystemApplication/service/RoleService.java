@@ -16,4 +16,6 @@ public interface RoleService {
     public Role getByCode(String code);
 
     public Role getByName(String name);
+
+    public List<Role> options(List<Long> roleIds);
 }

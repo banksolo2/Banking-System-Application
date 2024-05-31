@@ -9,12 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class CreateUserModel {
+public class EmailModel {
 
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private Long genderId;
+    private String recipient;
+    private String messageBody;
+    private String subject;
+    private String attachment;
+
 }

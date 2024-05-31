@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragment-table :: head}"></head>
+<body>
+<div th:replace="~{fragment-dashboard :: top-header}"></div>
+<div th:replace="~{fragment-dashboard :: left-nav}"></div>
+<div class="mobile-menu-overlay"></div>
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="title">
+                            <h4>[[${title}]]</h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                                <li class="breadcrumb-item"><a th:href="@{/admin/user/all}">All Users</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">[[${title}]]</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-right">
+                        <div class="dropdown">
+                            <!--
+                            <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                January 2018
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Export List</a>
+                                <a class="dropdown-item" href="#">Policies</a>
+                                <a class="dropdown-item" href="#">View Assets</a>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="invoice-wrap">
+                <div class="invoice-box">
+                    <div class="invoice-header">
+                        <div class="logo text-center">
+                            <!--img th:src="@{/vendors/images/deskapp-logo.svg}" alt=""-->
+                        </div>
+                    </div>
+                    <h4 class="text-center mb-30 weight-600">[[${title}]]</h4>
+                    <div class="row pb-30">
+
+                    </div>
+                    <div class="invoice-desc pb-30">
+                        <div class="invoice-desc-head clearfix">
+                            <div class="invoice-sub">Column</div>
+                            <div class="invoice-rate">Value</div>
+                        </div>
+                        <div class="invoice-desc-body">
+                            <ul>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">User ID</div>
+                                    <div class="invoice-rate" th:text="${user.userId}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">First Name</div>
+                                    <div class="invoice-rate" th:text="${user.firstName}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Middle Name</div>
+                                    <div class="invoice-rate" th:text="${user.middleName}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Last Name</div>
+                                    <div class="invoice-rate" th:text="${user.lastName}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Email Address</div>
+                                    <div class="invoice-rate" th:text="${user.email}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Phone Number</div>
+                                    <div class="invoice-rate" th:text="${user.phone}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Gender</div>
+                                    <div class="invoice-rate" th:text="${user.gender.name}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Is Active</div>
+                                    <div class="invoice-rate" th:text="${user.isActive}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Created By</div>
+                                    <div class="invoice-rate">[[${user.createdBy.firstName}]] [[${user.createdBy.middleName}]] [[${user.createdBy.lastName}]]</div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Created At</div>
+                                    <div class="invoice-rate" th:text="${user.createdAt}"></div>
+                                </li>
+                                <li class="clearfix" th:if="${user.updatedBy != null}">
+                                    <div class="invoice-sub">Updated By</div>
+                                    <div class="invoice-rate">[[${user.updatedBy.firstName}]] [[${user.updatedBy.middleName}]] [[${user.updatedBy.lastName}]]</div>
+                                </li>
+                                <li class="clearfix" th:if="${user.updatedAt != null}">
+                                    <div class="invoice-sub">Updated At</div>
+                                    <div class="invoice-rate" th:text="${user.updatedAt}"></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn-list">
+                            <a class="btn btn-secondary" th:href="@{/admin/user/all}" role="button">Go Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="~{fragment-dashboard :: footer}"></div>
+    </div>
+</div>
+<div th:replace="~{fragment-table :: script}"></div>
+</html>

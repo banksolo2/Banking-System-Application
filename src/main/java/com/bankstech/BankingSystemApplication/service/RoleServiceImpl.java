@@ -62,4 +62,9 @@ public class RoleServiceImpl implements RoleService {
     public Role getByName(String name) {
         return roleRepository.findByNameIgnoreCase(name).orElse(new Role());
     }
+
+    @Override
+    public List<Role> options(List<Long> roleIds) {
+        return roleRepository.options(roleIds);
+    }
 }
