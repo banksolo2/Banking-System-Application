@@ -56,7 +56,7 @@ public class UserController {
         User user = userService.getByEmail(principal.getName());
         mv.addObject("userData",user);
         mv.addObject("title","Home Page");
-        mv.addObject("link",new Link("",""));
+        mv.addObject("link",new Link("dashboard",""));
         mv.addObject("isRoles",userService.isUserHasRoles(user));
 
         return mv;
@@ -73,7 +73,7 @@ public class UserController {
         mv.addObject("title","Change Password");
         mv.addObject("changePassword",changePassword);
         mv.addObject("userData",user);
-        mv.addObject("link",new Link("",""));
+        mv.addObject("link",new Link("dashboard",""));
         mv.addObject("isRoles",userService.isUserHasRoles(user));
 
         return mv;
@@ -88,6 +88,30 @@ public class UserController {
 
         return "redirect:/change-password";
 
+    }
+
+    @GetMapping("/update-profile")
+    public ModelAndView updateProfile(Principal principal){
+        User userData = userService.getByEmail(principal.getName());
+        UpdateProfileModel updateProfileModel = userService.convertUserToUpdateProfileModel(userData);
+        mv = new ModelAndView("user-profile");
+        mv.addObject("title","Update Profile");
+        mv.addObject("userData",userData);
+        mv.addObject("updateProfileModel", updateProfileModel);
+        mv.addObject("isRoles",userService.isUserHasRoles(userData));
+        mv.addObject("link", new Link("dashboard",""));
+        mv.addObject("genders",genderService.options(userData.getGender().getGenderId()));
+
+        return mv;
+    }
+
+    @PostMapping("/update-profile/save")
+    public String saveUpdateProfile(@ModelAttribute UpdateProfileModel updateProfileModel, Principal principal, RedirectAttributes ra){
+        User updatedBy = userService.getByEmail(principal.getName());
+        rm = userService.saveUpdateProfileModel(updateProfileModel,updatedBy);
+        ra.addFlashAttribute(rm.getType(),rm.getMessage());
+
+        return "redirect:/update-profile";
     }
 
     @GetMapping("logout-success")

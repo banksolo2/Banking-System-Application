@@ -371,4 +371,81 @@ public class UserServiceImpl implements UserService {
     public Boolean isEmailExistOnUpdate(Long userId, String email) {
         return userRepository.isEmailExistOnUpdate(userId,email);
     }
+
+    @Override
+    public Object validateUpdateProfileModel(UpdateProfileModel updateProfileModel) {
+        if(Objects.isNull(updateProfileModel.getMiddleName()) || updateProfileModel.getMiddleName().isEmpty()){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("Middle Name field required")
+                    .build();
+        }
+        if(Objects.isNull(updateProfileModel.getLastName()) || updateProfileModel.getLastName().isEmpty()){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("Last Name field required")
+                    .build();
+        }
+        if(Objects.isNull(updateProfileModel.getEmail()) || updateProfileModel.getEmail().isEmpty()){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("email field required")
+                    .build();
+        }
+        if(isEmailExistOnUpdate(updateProfileModel.getUserId(),updateProfileModel.getEmail())){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("email address "+updateProfileModel.getEmail()+" already exist.")
+                    .build();
+        }
+        if(Objects.isNull(updateProfileModel.getPhone()) || updateProfileModel.getPhone().isEmpty()){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("Phone number field required")
+                    .build();
+        }
+        if(Objects.isNull(updateProfileModel.getGender()) || updateProfileModel.getGender().getGenderId() == 0){
+            return ResponseMessage.builder()
+                    .type("error")
+                    .message("Gender field required")
+                    .build();
+        }
+
+        return "Ok";
+    }
+
+    @Override
+    public UpdateProfileModel convertUserToUpdateProfileModel(User user) {
+        return UpdateProfileModel.builder()
+                .userId(user.getUserId())
+                .firstName(user.getFirstName())
+                .middleName(user.getMiddleName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .phone(user.getPhone())
+                .gender(user.getGender())
+                .build();
+    }
+
+    @Override
+    public ResponseMessage saveUpdateProfileModel(UpdateProfileModel updateProfileModel, User updatedBy) {
+        Object validateUpdateProfile = validateUpdateProfileModel(updateProfileModel);
+        if(validateUpdateProfile instanceof  ResponseMessage){
+            return (ResponseMessage) validateUpdateProfile;
+        }
+        User user = getById(updateProfileModel.getUserId());
+        user.setFirstName(updateProfileModel.getFirstName());
+        user.setMiddleName(updateProfileModel.getMiddleName());
+        user.setLastName(updateProfileModel.getLastName());
+        user.setEmail(updateProfileModel.getEmail());
+        user.setPhone(updateProfileModel.getPhone());
+        user.setGender(updateProfileModel.getGender());
+        user.setUpdatedBy(updatedBy);
+        userRepository.save(user);
+
+        return ResponseMessage.builder()
+                .type("success")
+                .message("Profile updated")
+                .build();
+    }
 }

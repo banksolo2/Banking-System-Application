@@ -59,7 +59,7 @@
                     <span class="user-name">[[${userData.email}]]</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <a class="dropdown-item" href="#"><i class="dw dw-user1"></i> Update Profile</a>
+                    <a class="dropdown-item" th:href="@{/update-profile}"><i class="dw dw-user1"></i> Update Profile</a>
                     <a class="dropdown-item" th:href="@{/change-password}"><i class="dw dw-settings2"></i> Change Password</a>
                     <a class="dropdown-item" th:href="@{/logout}"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
@@ -80,8 +80,13 @@
     <div class="menu-block customscroll">
         <div class="sidebar-menu">
             <ul id="accordion-menu">
-                <li>
-                    <a th:href="@{/}" class="dropdown-toggle no-arrow ">
+                <li th:if="${link.head == 'dashboard'}">
+                    <a th:href="@{/}" class="dropdown-toggle no-arrow active">
+                        <span class="micon dw dw-house"></span><span class="mtext">Dashboard</span>
+                    </a>
+                </li>
+                <li th:unless="${link.head == 'dashboard'}">
+                    <a th:href="@{/}" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-house"></span><span class="mtext">Dashboard</span>
                     </a>
                 </li>
@@ -91,14 +96,14 @@
                     </a>
                     <ul class="submenu">
                         <li class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle active" th:if="${link.sub == 'user'}">
+                            <a href="javascript:;" class="dropdown-toggle active" th:if="${link.sub == 'user' && link.head == 'admin'}">
                                 <span class="micon fa fa-user"></span><span class="mtext">User</span>
                             </a>
-                            <a href="javascript:;" class="dropdown-toggle" th:unless="${link.sub == 'user'}">
+                            <a href="javascript:;" class="dropdown-toggle" th:unless="${link.sub == 'user' && link.head == 'admin'}">
                                 <span class="micon fa fa-user"></span><span class="mtext">User</span>
                             </a>
                             <ul class="submenu child">
-                                <li><a th:href="@{/admin/user/all}" class="active" th:if="${link.option == 'allUsers'}">All</a></li>
+                                <li><a th:href="@{/admin/user/all}" class="active" th:if="${link.option == 'allUsers' }">All</a></li>
                                 <li><a th:href="@{/admin/user/all}" th:unless="${link.option == 'allUsers'}">All</a></li>
                                 <li><a th:href="@{/admin/user/create}" class="active" th:if="${link.option == 'createUser'}">Create</a></li>
                                 <li><a th:href="@{/admin/user/create}"  th:unless="${link.option == 'createUser'}">Create</a></li>

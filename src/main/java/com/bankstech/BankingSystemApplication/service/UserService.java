@@ -45,5 +45,11 @@ public interface UserService {
 
     public Boolean isEmailExistOnUpdate(Long userId, String email);
 
+    public Object validateUpdateProfileModel(UpdateProfileModel updateProfileModel);
+
+    public UpdateProfileModel convertUserToUpdateProfileModel(User user);
+
+    public ResponseMessage saveUpdateProfileModel(UpdateProfileModel updateProfileModel, User updatedBy);
+
 
 }
