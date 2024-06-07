@@ -109,6 +109,20 @@
                                 <li><a th:href="@{/admin/user/create}"  th:unless="${link.option == 'createUser'}">Create</a></li>
                             </ul>
                         </li>
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle active" th:if="${link.sub == 'bank' && link.head == 'admin'}">
+                                <span class="micon fa fa-hospital-o"></span><span class="mtext">Bank</span>
+                            </a>
+                            <a href="javascript:;" class="dropdown-toggle" th:unless="${link.sub == 'bank' && link.head == 'admin'}">
+                                <span class="micon fa fa-hospital-o"></span><span class="mtext">Bank</span>
+                            </a>
+                            <ul class="submenu child">
+                                <li><a th:href="@{/admin/bank/all}" class="active" th:if="${link.option == 'allBanks' }">All</a></li>
+                                <li><a th:href="@{/admin/bank/all}" th:unless="${link.option == 'allBanks'}">All</a></li>
+                                <li><a th:href="@{/admin/bank/create}" class="active" th:if="${link.option == 'createBank'}">Create</a></li>
+                                <li><a th:href="@{/admin/bank/create}"  th:unless="${link.option == 'createBank'}">Create</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <!--

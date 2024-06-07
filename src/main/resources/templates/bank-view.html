@@ -18,7 +18,8 @@
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Admin</a></li>
-                                <li class="breadcrumb-item"><a th:href="@{/admin/user/all}">All Users</a></li>
+                                <li class="breadcrumb-item"><a href="#">Bank</a></li>
+                                <li class="breadcrumb-item"><a th:href="@{/admin/bank/all}">All Banks</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">[[${title}]]</li>
                             </ol>
                         </nav>
@@ -58,57 +59,37 @@
                         <div class="invoice-desc-body">
                             <ul>
                                 <li class="clearfix">
-                                    <div class="invoice-sub">User ID</div>
-                                    <div class="invoice-rate" th:text="${user.userId}"></div>
+                                    <div class="invoice-sub">Bank ID</div>
+                                    <div class="invoice-rate" th:text="${bank.bankId}"></div>
                                 </li>
                                 <li class="clearfix">
-                                    <div class="invoice-sub">First Name</div>
-                                    <div class="invoice-rate" th:text="${user.firstName}"></div>
+                                    <div class="invoice-sub">Name</div>
+                                    <div class="invoice-rate" th:text="${bank.name}"></div>
                                 </li>
                                 <li class="clearfix">
-                                    <div class="invoice-sub">Middle Name</div>
-                                    <div class="invoice-rate" th:text="${user.middleName}"></div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="invoice-sub">Last Name</div>
-                                    <div class="invoice-rate" th:text="${user.lastName}"></div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="invoice-sub">Email Address</div>
-                                    <div class="invoice-rate" th:text="${user.email}"></div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="invoice-sub">Phone Number</div>
-                                    <div class="invoice-rate" th:text="${user.phone}"></div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="invoice-sub">Gender</div>
-                                    <div class="invoice-rate" th:text="${user.gender.name}"></div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="invoice-sub">Is Active</div>
-                                    <div class="invoice-rate" th:text="${user.isActive}"></div>
+                                    <div class="invoice-sub">code</div>
+                                    <div class="invoice-rate" th:text="${bank.code}"></div>
                                 </li>
                                 <li class="clearfix">
                                     <div class="invoice-sub">Created By</div>
-                                    <div class="invoice-rate">[[${user.createdBy.firstName}]] [[${user.createdBy.middleName}]] [[${user.createdBy.lastName}]]</div>
+                                    <div class="invoice-rate">[[${bank.createdBy.firstName}]] [[${bank.createdBy.middleName}]] [[${bank.createdBy.lastName}]]</div>
                                 </li>
                                 <li class="clearfix">
                                     <div class="invoice-sub">Created At</div>
-                                    <div class="invoice-rate" th:text="${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></div>
+                                    <div class="invoice-rate" th:text="${#temporals.format(bank.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></div>
                                 </li>
-                                <li class="clearfix" th:if="${user.updatedBy != null}">
+                                <li class="clearfix" th:if="${bank.updatedBy != null}">
                                     <div class="invoice-sub">Updated By</div>
-                                    <div class="invoice-rate">[[${user.updatedBy.firstName}]] [[${user.updatedBy.middleName}]] [[${user.updatedBy.lastName}]]</div>
+                                    <div class="invoice-rate">[[${bank.updatedBy.firstName}]] [[${bank.updatedBy.middleName}]] [[${bank.updatedBy.lastName}]]</div>
                                 </li>
-                                <li class="clearfix" th:if="${user.updatedAt != null}">
+                                <li class="clearfix" th:if="${bank.updatedAt != null}">
                                     <div class="invoice-sub">Updated At</div>
-                                    <div class="invoice-rate" th:text="${#temporals.format(user.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></div>
+                                    <div class="invoice-rate" th:text="${#temporals.format(bank.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></div>
                                 </li>
                             </ul>
                         </div>
                         <div class="btn-list">
-                            <a class="btn btn-secondary" th:href="@{/admin/user/all}" role="button">Go Back</a>
+                            <a class="btn btn-secondary" th:href="@{/admin/bank/all}" role="button">Go Back</a>
                         </div>
                     </div>
                 </div>
