@@ -32,3 +32,50 @@ insert into banks (name, code,created_at,created_by,is_deleted) values('Globus B
 insert into banks (name, code,created_at,created_by,is_deleted) values('Guaranty Trust Bank Plc',upper('Guaranty_Trust_Bank_Plc'),CURRENT_TIMESTAMP(),1,false);
 insert into banks (name, code,created_at,created_by,is_deleted) values('Heritage Banking Company Ltd',upper('Heritage_Banking_Company_Ltd'),CURRENT_TIMESTAMP(),1,false);
 insert into banks (name, code,created_at,created_by,is_deleted) values('Keystone Bank Limited',upper('Keystone_Bank_Limited'),CURRENT_TIMESTAMP(),1,false);
+
+
+insert into account_types (name,code) values('Savings', 'SAVINGS');
+insert into account_types (name,code) values('Current', 'CURRENT');
+
+
+insert into account_status (name,code) values('Active','ACTIVE');
+insert into account_status (name,code) values('Disable','DISABLE');
+
+
+insert into states (name,code) values('Abia',upper('Abia'));
+insert into states (name,code) values('Adamawa',upper('Adamawa'));
+insert into states (name,code) values('Akwa Ibom',upper('Akwa_Ibom'));
+insert into states (name,code) values('Anambra',upper('Anambra'));
+insert into states (name,code) values('Abuja',upper('Abuja'));
+insert into states (name,code) values('Bauchi',upper('Bauchi'));
+insert into states (name,code) values('Bayelsa',upper('Bayelsa'));
+insert into states (name,code) values('Benue',upper('Benue'));
+insert into states (name,code) values('Borno',upper('Borno'));
+insert into states (name,code) values('Cross River',upper('Cross_River'));
+insert into states (name,code) values('Delta',upper('Delta'));
+insert into states (name,code) values('Ebonyi',upper('Ebonyi'));
+insert into states (name,code) values('Edo',upper('Edo'));
+insert into states (name,code) values('Ekiti',upper('Ekiti'));
+insert into states (name,code) values('Enugu',upper('Enugu'));
+insert into states (name,code) values('Gombe',upper('Gombe'));
+insert into states (name,code) values('Imo',upper('Imo'));
+insert into states (name,code) values('Jigawa',upper('Jigawa'));
+insert into states (name,code) values('Kaduna',upper('Kaduna'));
+insert into states (name,code) values('Kano',upper('Kano'));
+insert into states (name,code) values('Katsina',upper('Katsina'));
+insert into states (name,code) values('Kebbi',upper('Kebbi'));
+insert into states (name,code) values('Kogi',upper('Kogi'));
+insert into states (name,code) values('Kwara',upper('Kwara'));
+insert into states (name,code) values('Lagos',upper('Lagos'));
+insert into states (name,code) values('Nasarawa',upper('Nasarawa'));
+insert into states (name,code) values('Niger',upper('Niger'));
+insert into states (name,code) values('Ogun',upper('Ogun'));
+insert into states (name,code) values('Ondo',upper('Ondo'));
+insert into states (name,code) values('Osun',upper('Osun'));
+insert into states (name,code) values('Oyo',upper('Oyo'));
+insert into states (name,code) values('Plateau',upper('Plateau'));
+insert into states (name,code) values('Rivers',upper('Rivers'));
+insert into states (name,code) values('Sokoto',upper('Sokoto'));
+insert into states (name,code) values('Taraba',upper('Taraba'));
+insert into states (name,code) values('Yobe',upper('Yobe'));
+insert into states (name,code) values('Zamfara',upper('Zamfara'));

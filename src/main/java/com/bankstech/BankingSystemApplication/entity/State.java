@@ -1,24 +1,28 @@
 package com.bankstech.BankingSystemApplication.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table( name = "account_types")
+@Table(
+        name = "states",
+        uniqueConstraints = @UniqueConstraint(
+                name = "state_name_unique",
+                columnNames = "name"
+        )
+)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
 @Builder
-public class AccountType {
+public class State {
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
-    private Long accountTypeId;
+    private Long stateId;
     private String name;
     private String code;
-
 }
