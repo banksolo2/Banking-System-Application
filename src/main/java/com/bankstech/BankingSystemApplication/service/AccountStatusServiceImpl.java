@@ -22,4 +22,9 @@ public class AccountStatusServiceImpl implements AccountStatusService {
     public List<AccountStatus> options(Long accountTypeId) {
         return accountStatusRepository.options(accountTypeId);
     }
+
+    @Override
+    public AccountStatus getByName(String name) {
+        return accountStatusRepository.findByNameIgnoreCase(name).orElse(new AccountStatus());
+    }
 }

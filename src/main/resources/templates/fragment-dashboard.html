@@ -103,10 +103,10 @@
                                 <span class="micon fa fa-user"></span><span class="mtext">User</span>
                             </a>
                             <ul class="submenu child">
-                                <li><a th:href="@{/admin/user/all}" class="active" th:if="${link.option == 'allUsers' }">All</a></li>
-                                <li><a th:href="@{/admin/user/all}" th:unless="${link.option == 'allUsers'}">All</a></li>
                                 <li><a th:href="@{/admin/user/create}" class="active" th:if="${link.option == 'createUser'}">Create</a></li>
                                 <li><a th:href="@{/admin/user/create}"  th:unless="${link.option == 'createUser'}">Create</a></li>
+                                <li><a th:href="@{/admin/user/all}" class="active" th:if="${link.option == 'allUsers' }">All</a></li>
+                                <li><a th:href="@{/admin/user/all}" th:unless="${link.option == 'allUsers'}">All</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -117,24 +117,40 @@
                                 <span class="micon fa fa-hospital-o"></span><span class="mtext">Bank</span>
                             </a>
                             <ul class="submenu child">
-                                <li><a th:href="@{/admin/bank/all}" class="active" th:if="${link.option == 'allBanks' }">All</a></li>
-                                <li><a th:href="@{/admin/bank/all}" th:unless="${link.option == 'allBanks'}">All</a></li>
                                 <li><a th:href="@{/admin/bank/create}" class="active" th:if="${link.option == 'createBank'}">Create</a></li>
                                 <li><a th:href="@{/admin/bank/create}"  th:unless="${link.option == 'createBank'}">Create</a></li>
+                                <li><a th:href="@{/admin/bank/all}" class="active" th:if="${link.option == 'allBanks' }">All</a></li>
+                                <li><a th:href="@{/admin/bank/all}" th:unless="${link.option == 'allBanks'}">All</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle active" th:if="${link.sub == 'state' && link.head == 'admin'}">
-                                <span class="micon fa fa-hospital-o"></span><span class="mtext">State</span>
+                                <span class="micon fa fa-road"></span><span class="mtext">State</span>
                             </a>
                             <a href="javascript:;" class="dropdown-toggle" th:unless="${link.sub == 'state' && link.head == 'admin'}">
-                                <span class="micon fa fa-hospital-o"></span><span class="mtext">State</span>
+                                <span class="micon fa fa-road"></span><span class="mtext">State</span>
                             </a>
                             <ul class="submenu child">
-                                <li><a th:href="@{/admin/state/all}" class="active" th:if="${link.option == 'allStates' }">All</a></li>
-                                <li><a th:href="@{/admin/state/all}" th:unless="${link.option == 'allStates'}">All</a></li>
                                 <li><a th:href="@{/admin/state/create}" class="active" th:if="${link.option == 'createState'}">Create</a></li>
                                 <li><a th:href="@{/admin/state/create}"  th:unless="${link.option == 'createState'}">Create</a></li>
+                                <li><a th:href="@{/admin/state/all}" class="active" th:if="${link.option == 'allStates' }">All</a></li>
+                                <li><a th:href="@{/admin/state/all}" th:unless="${link.option == 'allStates'}">All</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle active" th:if="${link.sub == 'account' && link.head == 'admin'}">
+                                <span class="micon fa fa-credit-card-alt"></span><span class="mtext">Account</span>
+                            </a>
+                            <a href="javascript:;" class="dropdown-toggle" th:unless="${link.sub == 'account' && link.head == 'admin'}">
+                                <span class="micon fa fa-credit-card-alt"></span><span class="mtext">Account</span>
+                            </a>
+                            <ul class="submenu child">
+                                <li><a th:href="@{/admin/account/create}" class="active" th:if="${link.option == 'createAccount'}">Create</a></li>
+                                <li><a th:href="@{/admin/account/create}"  th:unless="${link.option == 'createAccount'}">Create</a></li>
+                                <li><a th:href="@{/admin/account/all-savings}" class="active" th:if="${link.option == 'allSavingsAccount' }">All Savings</a></li>
+                                <li><a th:href="@{/admin/account/all-savings}" th:unless="${link.option == 'allSavingsAccount'}">All Savings</a></li>
+                                <li><a th:href="@{/admin/account/all-current}" class="active" th:if="${link.option == 'allCurrentAccount' }">All Current</a></li>
+                                <li><a th:href="@{/admin/account/all-current}" th:unless="${link.option == 'allCurrentAccount'}">All Current</a></li>
                             </ul>
                         </li>
                     </ul>

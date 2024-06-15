@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragment-form :: head}"></head>
+<body>
+
+<div th:replace="~{fragment-dashboard :: top-header}"></div>
+
+<div th:replace="~{fragment-dashboard :: left-nav}"></div>
+<div class="mobile-menu-overlay"></div>
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="title">
+                            <h4 th:text="${title}"></h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                                <li class="breadcrumb-item"><a href="#">Account</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">[[${title}]]</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-right">
+                        <div class="dropdown">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form grid Start -->
+            <div class="pd-20 card-box mb-30">
+                <div th:replace="~{fragment-table :: alert}"></div>
+                <form method="post" th:action="@{/admin/account/save}" th:object="${accountModel}">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>First Name <b style="color: red">*</b></label>
+                                <input type="text" class="form-control" th:field="*{firstName}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Middle Name <b style="color: red">*</b></label>
+                                <input type="text" class="form-control" th:field="*{middleName}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Last Name <b style="color: red">*</b></label>
+                                <input type="text" class="form-control" th:field="*{lastName}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Email <b style="color: red">*</b></label>
+                                <input type="email" class="form-control" th:field="*{email}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Phone Number <b style="color: red">*</b></label>
+                                <input type="number" class="form-control" th:field="*{phoneNumber}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Alternative Phone Number </label>
+                                <input type="number" class="form-control" th:field="*{alternativePhoneNumber}" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Gender <b style="color: red">*</b></label>
+                                <select class="selectpicker form-control" data-style="btn-outline-primary" data-size="5" th:field="*{gender.genderId}" required>
+                                    <option value="">SELECT GENDER</option>
+                                    <option th:each="gender : ${genders}" th:value="${gender.genderId}">[[${gender.name}]]</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Account Type <b style="color: red">*</b></label>
+                                <select class="selectpicker form-control" data-style="btn-outline-primary" data-size="5" th:field="*{accountType.accountTypeId}" required>
+                                    <option value="">SELECT ACCOUNT TYPE</option>
+                                    <option th:each="accountType : ${accountTypes}" th:value="${accountType.accountTypeId}">[[${accountType.name}]]</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>State Of Origin <b style="color: red">*</b></label>
+                                <select class="selectpicker form-control" data-style="btn-outline-primary" data-size="5" th:field="*{stateOfOrigin.stateId}" required>
+                                    <option value="">SELECT STATE OF ORIGIN</option>
+                                    <option th:each="state : ${states}" th:value="${state.stateId}">[[${state.name}]]</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Date Of Birth <b style="color: red">*</b></label>
+                                <input class="form-control date-picker" placeholder="Select Date" th:field="*{dateOfBirth}" type="text" required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Address <b style="color: red">*</b></label>
+                                <textarea class="form-control" th:field="*{address}" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="btn-list">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!-- Form grid End -->
+
+        </div>
+        <div th:replace="~{fragment-dashboard :: footer}"></div>
+    </div>
+</div>
+<div th:replace="~{fragment-form :: script}"></div>
+</body>
+</html>

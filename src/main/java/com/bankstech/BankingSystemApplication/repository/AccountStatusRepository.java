@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AccountStatusRepository extends JpaRepository<AccountStatus, Long> {
@@ -14,6 +15,8 @@ public interface AccountStatusRepository extends JpaRepository<AccountStatus, Lo
     @Query("select a from AccountStatus a order by a.name asc")
     public List<AccountStatus> findAll();
 
-    @Query("select a from AccountStatus a where a.accountStatusId = :accountStatusId order by a.name asc")
+    @Query("select a from AccountStatus a where a.accountStatusId != :accountStatusId order by a.name asc")
     public List<AccountStatus> options(@Param("accountStatusId") Long accountStatusId);
+
+    public Optional<AccountStatus> findByNameIgnoreCase(String name);
 }

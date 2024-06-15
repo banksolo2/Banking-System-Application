@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface AccountTypeRepository extends JpaRepository<AccountType,Long> {
 
-    @Query("select at from AccountType at where at.accountTypeId = :accountTypeId order by at.name asc")
+    @Query("select at from AccountType at where at.accountTypeId != :accountTypeId order by at.name asc")
     public List<AccountType> options(@Param("accountTypeId")Long accountTypeId);
 
 

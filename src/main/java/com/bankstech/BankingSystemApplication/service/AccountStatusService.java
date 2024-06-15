@@ -9,4 +9,6 @@ public interface AccountStatusService {
     public List<AccountStatus> all();
 
     public List<AccountStatus> options(Long accountTypeId);
+
+    public AccountStatus getByName(String name);
 }

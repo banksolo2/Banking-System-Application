@@ -64,9 +64,11 @@ public class SecurityConfig {
                                 .requestMatchers("/developer/**").hasRole(ROLES[1])
                                 .requestMatchers("/admin/**").hasAnyRole(ROLES[1],ROLES[2])
                                 .requestMatchers(WHITE_LIST).permitAll()
+
                                 .anyRequest().authenticated()
 
                 )
+
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()

@@ -9,4 +9,6 @@ public interface AccountTypeService {
     public List<AccountType> options(Long accountTypeId);
 
     public List<AccountType> all();
+
+    public AccountType getById(Long accountTypeId);
 }

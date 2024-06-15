@@ -42,6 +42,7 @@ insert into account_status (name,code) values('Active','ACTIVE');
 insert into account_status (name,code) values('Disable','DISABLE');
 
 
+
 insert into states (name,code) values('Abia',upper('Abia'));
 insert into states (name,code) values('Adamawa',upper('Adamawa'));
 insert into states (name,code) values('Akwa Ibom',upper('Akwa_Ibom'));
@@ -79,3 +80,23 @@ insert into states (name,code) values('Sokoto',upper('Sokoto'));
 insert into states (name,code) values('Taraba',upper('Taraba'));
 insert into states (name,code) values('Yobe',upper('Yobe'));
 insert into states (name,code) values('Zamfara',upper('Zamfara'));
+
+
+insert into accounts
+(account_number,account_type_id,account_status_id,balance,first_name,middle_name,last_name,email,date_of_birth,gender_id,address,state_of_origin,phone_number,alternative_phone_number,created_by,created_at)
+values
+('2024000001',1,1,2450500.50,'Oluwaseun','Joseph','Olotu','seunolo2@gmail.com','1985-03-21',1,'Block 103, Flat 3, Plot 56, Zone A, Iba Housing Estate, Ojo, Lagos, Nigeria',28,'2348080643360','2349090643360',4,CURRENT_TIMESTAMP());
+
+insert into accounts
+(account_number,account_type_id,account_status_id,balance,first_name,middle_name,last_name,email,date_of_birth,gender_id,address,state_of_origin,phone_number,alternative_phone_number,created_by,created_at)
+values
+    ('2024000002',2,1,2500.50,'Oluwaseun','Joseph','Olotu','seunolo2@gmail.com','1985-03-21',1,'Block 103, Flat 3, Plot 56, Zone A, Iba Housing Estate, Ojo, Lagos, Nigeria',28,'2348080643360','2349090643360',4,CURRENT_TIMESTAMP());
+
+insert into transaction_types (name,code) values ( 'Transfer',upper('Transfer'));
+insert into transaction_types (name,code) values ( 'Deposit',upper('deposit'));
+insert into transaction_types (name,code) values ( 'Withdrawal',upper('Withdrawal'));
+
+
+insert into transaction_statuses (name,code) values ( 'Successful',upper('successful') );
+insert into transaction_statuses (name,code) values ( 'Pending',upper('pending') );
+insert into transaction_statuses (name,code) values ( 'Failed',upper('failed') );

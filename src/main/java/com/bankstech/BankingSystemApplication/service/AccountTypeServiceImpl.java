@@ -22,4 +22,9 @@ public class AccountTypeServiceImpl implements AccountTypeService {
     public List<AccountType> all() {
         return accountTypeRepository.findAll();
     }
+
+    @Override
+    public AccountType getById(Long accountTypeId){
+        return accountTypeRepository.findById(accountTypeId).orElse(new AccountType());
+    }
 }

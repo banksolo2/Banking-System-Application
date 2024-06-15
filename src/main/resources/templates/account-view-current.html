@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragment-table :: head}"></head>
+<body>
+<div th:replace="~{fragment-dashboard :: top-header}"></div>
+<div th:replace="~{fragment-dashboard :: left-nav}"></div>
+<div class="mobile-menu-overlay"></div>
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-10 col-sm-12">
+                        <div class="title">
+                            <h4>[[${title}]]</h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                                <li class="breadcrumb-item"><a href="#">Account</a></li>
+                                <li class="breadcrumb-item"><a th:href="@{/admin/account/all-current}">All Current Account</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">[[${title}]]</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-2 col-sm-12 text-right">
+                        <div class="dropdown">
+                            <!--
+                            <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                January 2018
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Export List</a>
+                                <a class="dropdown-item" href="#">Policies</a>
+                                <a class="dropdown-item" href="#">View Assets</a>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="invoice-wrap">
+                <div class="invoice-box">
+                    <div class="invoice-header">
+                        <div class="logo text-center">
+                            <!--img th:src="@{/vendors/images/deskapp-logo.svg}" alt=""-->
+                        </div>
+                    </div>
+                    <h4 class="text-center mb-30 weight-600">[[${title}]]</h4>
+                    <div class="row pb-30">
+
+                    </div>
+                    <div class="invoice-desc pb-30">
+                        <div class="invoice-desc-head clearfix">
+                            <div class="invoice-sub">Column</div>
+                            <div class="invoice-rate">Value</div>
+                        </div>
+                        <div class="invoice-desc-body">
+                            <ul>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Account ID</div>
+                                    <div class="invoice-rate" th:text="${account.accountId}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Account Number</div>
+                                    <div class="invoice-rate" th:text="${account.accountNumber}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Account Type</div>
+                                    <div class="invoice-rate" th:text="${account.accountType.name}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">State</div>
+                                    <div class="invoice-rate" th:text="${account.accountStatus.name}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Balance(&#8358;)</div>
+                                    <div class="invoice-rate" th:text="${#numbers.formatDecimal(account.balance, 0, 'COMMA', 2, 'POINT')}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">First Name</div>
+                                    <div class="invoice-rate" th:text="${account.firstName}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Middle Name</div>
+                                    <div class="invoice-rate" th:text="${account.middleName}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Last Name</div>
+                                    <div class="invoice-rate" th:text="${account.lastName}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Email</div>
+                                    <div class="invoice-rate" th:text="${account.email}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Phone Number</div>
+                                    <div class="invoice-rate" th:text="${account.phoneNumber}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Alternative Phone Number</div>
+                                    <div class="invoice-rate" th:text="${account.alternativePhoneNumber}">Null</div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Date Of Birth</div>
+                                    <div class="invoice-rate" th:text="${dateOfBirth}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Gender</div>
+                                    <div class="invoice-rate" th:text="${account.gender.name}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">State Of Origin</div>
+                                    <div class="invoice-rate" th:text="${account.stateOfOrigin.name}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Address</div>
+                                    <div class="invoice-rate" th:text="${account.address}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Created By</div>
+                                    <div class="invoice-rate">[[${account.createdBy.firstName}]] [[${account.createdBy.middleName}]] [[${account.createdBy.lastName}]]</div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Created At</div>
+                                    <div class="invoice-rate" th:text="${#temporals.format(account.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></div>
+                                </li>
+                                <li class="clearfix" th:if="${account.updatedBy != null}">
+                                    <div class="invoice-sub">Updated By</div>
+                                    <div class="invoice-rate">[[${account.updatedBy.firstName}]] [[${account.updatedBy.middleName}]] [[${account.updatedBy.lastName}]]</div>
+                                </li>
+                                <li class="clearfix" th:if="${account.updatedAt != null}">
+                                    <div class="invoice-sub">Updated At</div>
+                                    <div class="invoice-rate" th:text="${#temporals.format(account.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn-list">
+                            <a class="btn btn-secondary" th:href="@{/admin/account/all-current}" role="button">Go Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="~{fragment-dashboard :: footer}"></div>
+    </div>
+</div>
+<div th:replace="~{fragment-table :: script}"></div>
+</html>
