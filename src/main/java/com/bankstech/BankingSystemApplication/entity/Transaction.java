@@ -28,6 +28,9 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "transaction_type_id")
     private TransactionType transactionType;
+    @ManyToOne
+    @JoinColumn(name = "amount_type_id")
+    private AmountType amountType;
     private BigDecimal amount;
     private BigDecimal balance;
     @ManyToOne

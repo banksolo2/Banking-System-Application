@@ -19,4 +19,11 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
                     "where a.email = :email and a.accountType.accountTypeId = :accountTypeId "
     )
     public Boolean isAccountAlreadyHasAccountType(@Param("email")String email, @Param("accountTypeId")Long accountTypeId);
+
+    @Query(
+            "select a from Account a where lower(a.accountStatus.name) = lower('active') " +
+                    "and a.accountId != :accountId " +
+                    "order by a.firstName,a.middleName,a.lastName asc"
+    )
+    public List<Account> options(@Param("accountId")Long accountId);
 }

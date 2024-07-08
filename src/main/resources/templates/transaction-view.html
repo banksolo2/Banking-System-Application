@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragment-table :: head}"></head>
+<body>
+<div th:replace="~{fragment-dashboard :: top-header}"></div>
+<div th:replace="~{fragment-dashboard :: left-nav}"></div>
+<div class="mobile-menu-overlay"></div>
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="title">
+                            <h4>[[${title}]]</h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Transaction</a></li>
+                                <li class="breadcrumb-item"><a th:href="@{/transaction/all}">All Transaction</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">[[${title}]]</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-right">
+                        <div class="dropdown">
+                            <!--
+                            <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                January 2018
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Export List</a>
+                                <a class="dropdown-item" href="#">Policies</a>
+                                <a class="dropdown-item" href="#">View Assets</a>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="invoice-wrap">
+                <div class="invoice-box">
+                    <div class="invoice-header">
+                        <div class="logo text-center">
+                            <!--img th:src="@{/vendors/images/deskapp-logo.svg}" alt=""-->
+                        </div>
+                    </div>
+                    <h4 class="text-center mb-30 weight-600">[[${title}]]</h4>
+                    <div class="row pb-30">
+
+                    </div>
+                    <div class="invoice-desc pb-30">
+                        <div class="invoice-desc-head clearfix">
+                            <div class="invoice-sub">Column</div>
+                            <div class="invoice-rate">Value</div>
+                        </div>
+                        <div class="invoice-desc-body">
+                            <ul>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Transaction ID</div>
+                                    <div class="invoice-rate" th:text="${transaction.transactionId}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Account Number</div>
+                                    <div class="invoice-rate" th:text="${transaction.account.accountNumber}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Account Name</div>
+                                    <div class="invoice-rate">[[${transaction.account.firstName}]] [[${transaction.account.middleName}]] [[${transaction.account.firstName}]]</div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Amount</div>
+                                    <div class="invoice-rate" th:text="${#numbers.formatDecimal(transaction.amount, 0, 'COMMA', 2, 'POINT')}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Amount Type</div>
+                                    <div class="invoice-rate" th:text="${transaction.amountType.name}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Balance</div>
+                                    <div class="invoice-rate" th:text="${#numbers.formatDecimal(transaction.balance, 0, 'COMMA', 2, 'POINT')}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Transaction Type</div>
+                                    <div class="invoice-rate" th:text="${transaction.transactionType.name}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Transaction Status</div>
+                                    <div class="invoice-rate" th:text="${transaction.transactionStatus.name}"></div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Description</div>
+                                    <div class="invoice-rate" th:text="${transaction.description}"></div>
+                                </li>
+
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Done By</div>
+                                    <div class="invoice-rate">[[${transaction.doneBy.firstName}]] [[${transaction.doneBy.middleName}]] [[${transaction.doneBy.lastName}]]</div>
+                                </li>
+
+                                <li class="clearfix">
+                                    <div class="invoice-sub">Done At</div>
+                                    <div class="invoice-rate" th:text="${#temporals.format(transaction.doneAt, 'yyyy-MM-dd HH:mm:ss')}"></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn-list">
+                            <a class="btn btn-secondary" th:href="@{/transaction/all}" role="button">Go Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="~{fragment-dashboard :: footer}"></div>
+    </div>
+</div>
+<div th:replace="~{fragment-table :: script}"></div>
+</html>

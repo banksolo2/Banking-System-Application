@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragment-table :: head}"></head>
+<body>
+
+<div th:replace="~{fragment-dashboard :: top-header}"></div>
+
+<div th:replace="~{fragment-dashboard :: left-nav}"></div>
+<div class="mobile-menu-overlay"></div>
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="title">
+                            <h4>[[${title}]]</h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Transaction</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">[[${title}]]</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <!--div class="col-md-6 col-sm-12 text-right">
+                        <div class="dropdown">
+                            <a th:href="@{/admin/account/create}" class="btn btn-primary" style="color : white">Create Account</a>
+                        </div>
+                    </div-->
+                </div>
+            </div>
+            <!-- Simple Datatable start -->
+            <div class="card-box mb-30">
+                <div class="pd-20">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${success}">
+                        <strong><i class="icon-copy fa fa-check" aria-hidden="true"></i></strong> <strong th:text="${success}"></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${error}">
+                        <strong><i class="icon-copy fa fa-warning" aria-hidden="true"></i></strong> <strong th:text="${error}"></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="pb-20">
+                    <table class="data-table table stripe hover nowrap">
+                        <thead>
+                        <tr>
+                            <th class="table-plus datatable-nosort">Done At</th>
+                            <th>Account Number</th>
+                            <th>Account Name</th>
+                            <th>Amount</th>
+                            <th>Amount Type</th>
+                            <th>Transaction Type</th>
+                            <th class="datatable-nosort">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="transaction : ${transactions}">
+                            <td class="table-plus" th:text="${#temporals.format(transaction.doneAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td th:text="${transaction.account.accountNumber}">Null</td>
+                            <td>[[${transaction.account.firstName}]] [[${transaction.account.middleName}]] [[${transaction.account.lastName}]]</td>
+                            <td th:text="${#numbers.formatDecimal(transaction.amount, 0, 'COMMA', 2, 'POINT')}">Null</td>
+                            <td th:text="${transaction.amountType.name}">Null</td>
+                            <td th:text="${transaction.transactionType.name}">Null</td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" th:href="@{/transaction/view(id=${transaction.transactionId})}"><i class="dw dw-eye"></i> View</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Simple Datatable End -->
+        </div>
+        <div th:replace="~{fragment-dashboard :: footer}"></div>
+    </div>
+</div>
+<div th:replace="~{fragment-table :: script}"></div>
+</body>
+</html>

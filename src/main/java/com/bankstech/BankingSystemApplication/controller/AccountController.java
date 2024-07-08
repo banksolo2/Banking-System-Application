@@ -4,6 +4,7 @@ import com.bankstech.BankingSystemApplication.entity.Account;
 import com.bankstech.BankingSystemApplication.entity.AccountStatus;
 import com.bankstech.BankingSystemApplication.entity.User;
 import com.bankstech.BankingSystemApplication.model.AccountModel;
+import com.bankstech.BankingSystemApplication.model.DepositModel;
 import com.bankstech.BankingSystemApplication.model.Link;
 import com.bankstech.BankingSystemApplication.model.ResponseMessage;
 import com.bankstech.BankingSystemApplication.service.*;
@@ -24,6 +25,7 @@ public class AccountController {
 
     private final String ADMIN_URL = "/admin/account";
     private final String USER_URL = "/user/account";
+
     @Autowired
     private AccountService accountService;
     @Autowired
@@ -36,6 +38,8 @@ public class AccountController {
     private GenderService genderService;
     @Autowired
     private StateService stateService;
+    @Autowired
+    private TransactionService transactionService;
     @Autowired
     private DateUtils dateUtils;
     private ModelAndView mv;
@@ -181,6 +185,9 @@ public class AccountController {
 
         return mv;
     }
+
+
+
 
 
 }

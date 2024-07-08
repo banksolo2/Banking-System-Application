@@ -90,6 +90,23 @@
                         <span class="micon dw dw-house"></span><span class="mtext">Dashboard</span>
                     </a>
                 </li>
+                <li class="dropdown" th:if="${isRoles.isDeveloper == true || isRoles.isUser == true}">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-money-2"></span><span class="mtext">Transaction</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a th:href="@{/transaction/all}" class="active" th:if="${link.head == 'transaction' && link.sub == 'allTransaction'}">All Transaction</a></li>
+                        <li><a th:href="@{/transaction/all}" th:unless="${link.head == 'transaction' && link.sub == 'allTransaction'}">All Transaction</a></li>
+                        <li><a th:href="@{/transaction/deposit}" class="active" th:if="${link.head == 'transaction' && link.sub == 'deposit'}">Make Deposit</a></li>
+                        <li><a th:href="@{/transaction/deposit}" th:unless="${link.head == 'transaction' && link.sub == 'deposit'}">Make Deposit</a></li>
+                        <li><a th:href="@{/transaction/transfer}" class="active" th:if="${link.head == 'transaction' && link.sub == 'transfer'}">Make Transfer</a></li>
+                        <li><a th:href="@{/transaction/transfer}" th:unless="${link.head == 'transaction' && link.sub == 'transfer'}">Make Transfer</a></li>
+                        <li><a th:href="@{/transaction/transfer-other-bank}" class="active" th:if="${link.head == 'transaction' && link.sub == 'transferOtherBank'}">Transfer Other Bank</a></li>
+                        <li><a th:href="@{/transaction/transfer-other-bank}" th:unless="${link.head == 'transaction' && link.sub == 'transferOtherBank'}">Transfer Other Bank</a></li>
+                        <li><a th:href="@{/transaction/history}" class="active" th:if="${link.head == 'transaction' && link.sub == 'history'}">History</a></li>
+                        <li><a th:href="@{/transaction/history}" th:unless="${link.head == 'transaction' && link.sub == 'history'}">History</a></li>
+                    </ul>
+                </li>
                 <li class="dropdown" th:if="${isRoles.isAdmin == true || isRoles.isDeveloper == true}">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-user-11"></span><span class="mtext">Admin</span>
@@ -162,30 +179,20 @@
                     </a>
                     <ul class="submenu">
                         <li class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle active" th:if="${link.head == 'leaveWithPay'}">
-                                <span class="micon dw dw-money-2"></span><span class="mtext">With Pay</span>
+                            <a href="javascript:;" class="dropdown-toggle active" th:if="${link.head == 'transaction'}">
+                                <span class="micon dw dw-money-2"></span><span class="mtext">Transaction</span>
                             </a>
-                            <a href="javascript:;" class="dropdown-toggle" th:unless="${link.head == 'leaveWithPay'}">
-                                <span class="micon dw dw-money-2"></span><span class="mtext">With Pay</span>
+                            <a href="javascript:;" class="dropdown-toggle" th:unless="${link.head == 'transaction'}">
+                                <span class="micon dw dw-money-2"></span><span class="mtext">Transaction</span>
                             </a>
                             <ul class="submenu child">
-                                <li><a th:href="@{/employee/leave/with-pay/make-request}" class="active" th:if="${link.sub == 'makeRequest'}">Make Request</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/make-request}"  th:unless="${link.sub == 'makeRequest'}">Make Request</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/drafted}" class="active" th:if="${link.sub == 'drafted'}">Drafted</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/drafted}"  th:unless="${link.sub == 'drafted'}">Drafted</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/pending}" class="active" th:if="${link.sub == 'pending'}">Pending</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/pending}"  th:unless="${link.sub == 'pending'}">Pending</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/sent-back-for-correction}" class="active" th:if="${link.sub == 'sentBackForCorrection'}">Send Back For Correction</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/sent-back-for-correction}"  th:unless="${link.sub == 'sentBackForCorrection'}">Send Back For Correction</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/approved}" class="active" th:if="${link.sub == 'approved'}">Approved</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/approved}"  th:unless="${link.sub == 'approved'}">Approved</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/declined}" class="active" th:if="${link.sub == 'declined'}">Declined</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/declined}"  th:unless="${link.sub == 'declined'}">Declined</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/history}" class="active" th:if="${link.sub == 'history'}">History</a></li>
-                                <li><a th:href="@{/employee/leave/with-pay/history}"  th:unless="${link.sub == 'history'}">History</a></li>
+                                <li><a th:href="@{/user/transaction/deposit}" class="active" th:if="${link.sub == 'deposit'}">Make Deposit</a></li>
+                                <li><a th:href="@{/user/transaction/deposit}"  th:unless="${link.sub == 'deposit'}">Make Deposit</a></li>
 
                             </ul>
                         </li>
+                      </ul>
+                 <li>
                         -->
                     </ul>
             </ul>

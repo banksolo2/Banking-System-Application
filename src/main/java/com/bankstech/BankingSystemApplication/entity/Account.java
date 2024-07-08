@@ -30,6 +30,7 @@ public class Account {
     @ManyToOne
     @JoinColumn( name = "account_status_id")
     private AccountStatus accountStatus;
+
     private BigDecimal balance;
     private String firstName;
     private String middleName;

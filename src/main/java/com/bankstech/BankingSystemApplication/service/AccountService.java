@@ -25,4 +25,6 @@ public interface AccountService {
 
     public AccountModel convertToAccountModel(Account account);
 
+    public List<Account> options(Long accountId);
+
 }

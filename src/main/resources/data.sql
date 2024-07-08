@@ -100,3 +100,6 @@ insert into transaction_types (name,code) values ( 'Withdrawal',upper('Withdrawa
 insert into transaction_statuses (name,code) values ( 'Successful',upper('successful') );
 insert into transaction_statuses (name,code) values ( 'Pending',upper('pending') );
 insert into transaction_statuses (name,code) values ( 'Failed',upper('failed') );
+
+insert into amount_types (name,code) values('Credit',upper('Credit'));
+insert into amount_types (name,code) values('Debit',upper('Debit'));

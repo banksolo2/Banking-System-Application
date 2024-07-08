@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragment-form :: head}"></head>
+<body>
+
+<div th:replace="~{fragment-dashboard :: top-header}"></div>
+
+<div th:replace="~{fragment-dashboard :: left-nav}"></div>
+<div class="mobile-menu-overlay"></div>
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="title">
+                            <h4 th:text="${title}"></h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Transaction</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">[[${title}]]</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-right">
+                        <div class="dropdown">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form grid Start -->
+            <div class="pd-20 card-box mb-30">
+                <div th:replace="~{fragment-table :: alert}"></div>
+                <form method="post" th:action="@{/transaction/transfer/save}" th:object="${transferModel}">
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Source Account Number <b style="color: red">*</b></label>
+                                <select class="custom-select2 form-control" th:field="*{source.accountId}" style="width: 100%; height: 38px;">
+                                    <option value="">SELECT SOURCE ACCOUNT NUMBER</option>
+                                    <option th:each="account : ${accounts}" th:value="${account.accountId}">[[${account.firstName}]] [[${account.middleName}]] [[${account.lastName}]] ([[${account.accountNumber}]]  [[${account.accountType.name}]])</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Destination Account Number <b style="color: red">*</b></label>
+                                <select class="custom-select2 form-control" th:field="*{destination.accountId}" style="width: 100%; height: 38px;">
+                                    <option value="">SELECT DESTINATION ACCOUNT NUMBER</option>
+                                    <option th:each="account : ${accounts}" th:value="${account.accountId}">[[${account.firstName}]] [[${account.middleName}]] [[${account.lastName}]] ([[${account.accountNumber}]]  [[${account.accountType.name}]])</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Amount <b style="color: red">*</b></label>
+                                <input type="number" class="form-control" th:field="*{amount}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="btn-list">
+                                <button type="submit" class="btn btn-primary">Transfer</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!-- Form grid End -->
+
+        </div>
+        <div th:replace="~{fragment-dashboard :: footer}"></div>
+    </div>
+</div>
+<div th:replace="~{fragment-form :: script}"></div>
+</body>
+</html>

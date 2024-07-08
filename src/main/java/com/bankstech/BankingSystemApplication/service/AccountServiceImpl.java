@@ -224,4 +224,9 @@ public class AccountServiceImpl implements AccountService {
                 .gender(account.getGender())
                 .build();
     }
+
+    @Override
+    public List<Account> options(Long accountId) {
+        return accountRepository.options(accountId);
+    }
 }
