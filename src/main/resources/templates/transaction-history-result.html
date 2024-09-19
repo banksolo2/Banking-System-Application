@@ -58,7 +58,7 @@
                             <th>Amount</th>
                             <th>Amount Type</th>
                             <th>Transaction Type</th>
-                            <th class="datatable-nosort">Action</th>
+                            <th>Balance</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -69,16 +69,7 @@
                             <td th:text="${#numbers.formatDecimal(transaction.amount, 0, 'COMMA', 2, 'POINT')}">Null</td>
                             <td th:text="${transaction.amountType.name}">Null</td>
                             <td th:text="${transaction.transactionType.name}">Null</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                        <i class="dw dw-more"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                        <a class="dropdown-item" th:href="@{/transaction/history-result-view(id=${transaction.transactionId})}"><i class="dw dw-eye"></i> View</a>
-                                    </div>
-                                </div>
-                            </td>
+                            <td th:text="${#numbers.formatDecimal(transaction.balance, 0, 'COMMA', 2, 'POINT')}">Null</td>
                         </tr>
                         </tbody>
                     </table>
